@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "protobuf": "~0.8.6",
-    "node-celt": "~0.7.0"
+    "node-celt": "~0.1.0"
   }
 }
