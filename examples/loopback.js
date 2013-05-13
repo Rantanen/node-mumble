@@ -2,29 +2,15 @@
 var mumble = require('../');
 
 var unique = Date.now() % 10;
-var input;
-var output;
 
-mumble.connect( process.env.MUMBLE_ADDR, function( error, connection ) {
-    connection.authenticate('input-' + unique);
+mumble.connect( process.env.MUMBLE_URL, function( error, connection ) {
+    if( error ) { throw new Error( error ); }
+
+    connection.authenticate('loopback-' + unique);
     connection.on( 'initialized', function() {
-        input = connection;
-        tryStart();
+        connection.outputStream().pipe( connection.inputStream() );
     });
 });
 
-mumble.connect( process.env.MUMBLE_ADDR, function( error, connection ) {
-    connection.authenticate('output-' + unique);
-    connection.on( 'initialized', function() {
-        output = connection;
-        tryStart();
-    });
-});
-
-var tryStart = function () {
-    if( !input || !output ) return;
-
-    input.outputStream().pipe( output.inputStream() );
-};
 
 
