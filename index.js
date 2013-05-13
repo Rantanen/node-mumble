@@ -42,10 +42,7 @@ exports.connect = function( url, options, done ) {
         // If path was given, wait for init to be done before moving.
         if( server.path ) {
             connection.once('initialized', function () {
-                setTimeout( function () {
-                    console.log( "Init done. Joining path\n\n");
-                    connection.joinPath( server.path );
-                }, 1000 );
+                connection.joinPath( server.path );
             });
         }
     });
