@@ -5,13 +5,15 @@ Mumble client for Node.js
 This module implements mumble protocol handling for Node.js
 
     var mumble = require('mumble');
+    var fs = require('fs');
 
-    var tlsOptions = {
-        // Client certificates unless server doesn't require them. (Most do!)
+    var options = {
+        key: fs.readFileSync( 'private.pem' ),
+        cert: fs.readFileSync( 'public.pem' )
     }
 
     console.log( 'Connecting' );
-    mumble.connect( 'mumble.example.org', 64738, tlsOptions, function ( error, connection ) {
+    mumble.connect( 'mumble://example.org', options, function ( error, connection ) {
         if( error ) { throw new Error( error ); }
 
         console.log( 'Connected' );
@@ -28,9 +30,7 @@ This module implements mumble protocol handling for Node.js
     };
 
     var onVoice = function( event ) {
-        console.log( 'Incoming voice data' );
+        console.log( 'Mixed voice' );
 
-        var sender = voice.sender;
         var pcmData = voice.data;
     }
-
