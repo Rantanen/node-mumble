@@ -48,6 +48,6 @@ exports.connect = function( url, options, done ) {
     });
 
     socket.on('error', done);
-}
+};
 
 exports.celtVersions = mumbleutil.celtVersions;
