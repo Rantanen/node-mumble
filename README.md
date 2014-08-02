@@ -34,3 +34,5 @@ This module implements mumble protocol handling for Node.js
 
         var pcmData = voice.data;
     }
+
+Take a look at the advanced example in "examples/advanced.js"!
