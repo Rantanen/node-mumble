@@ -29,9 +29,12 @@ exports.connect = function( url, options, done ) {
     }
 
     var socket = tls.connect( server.port, server.host, options, function ( err ) {
-
-        // TODO Remove the certificate buffers from the options.
-        // MumbleConnection doesn't need to hold onto them.
+        if(options.key !== undefined) {
+            delete options.key;
+        }
+        if(options.cert !== undefined) {
+            delete options.cert;
+        }
         var connection = new MumbleConnection( socket, options );
 
         done( null, connection );
