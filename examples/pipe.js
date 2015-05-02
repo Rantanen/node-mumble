@@ -1,4 +1,6 @@
 
+"use strict";
+
 var mumble = require('../');
 
 var unique = Date.now() % 10;
