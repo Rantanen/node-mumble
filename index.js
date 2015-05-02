@@ -5,6 +5,7 @@ var tls = require('tls');
 var mumbleutil = require('./lib/util');
 
 var MumbleConnection = require('./lib/MumbleConnection');
+var MumbleWrapper = require('./lib/MumbleWrapper');
 
 exports.MumbleConnection = MumbleConnection;
 
@@ -29,12 +30,15 @@ exports.connect = function( url, options, done ) {
     }
 
     var socket = tls.connect( server.port, server.host, options, function ( err ) {
-
-        // TODO Remove the certificate buffers from the options.
-        // MumbleConnection doesn't need to hold onto them.
+        if(options.key !== undefined) {
+            delete options.key;
+        }
+        if(options.cert !== undefined) {
+            delete options.cert;
+        }
         var connection = new MumbleConnection( socket, options );
 
-        done( null, connection );
+        done( null, new MumbleWrapper(connection) );
         if( !connection.authSent && server.username ) {
             connection.authenticate( server.username );
         }
