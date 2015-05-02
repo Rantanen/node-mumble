@@ -36,3 +36,5 @@ This module implements mumble protocol handling for Node.js
     }
 
 Take a look at the advanced example in "examples/advanced.js"!
+
+Please also take a look at the [wiki](https://github.com/Rantanen/node-mumble/wiki/API) for an complete documentation of the API.
