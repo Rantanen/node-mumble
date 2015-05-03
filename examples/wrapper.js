@@ -79,6 +79,9 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
     connection.on('user-move', function(user, fromChannel, toChannel) {
         console.log("User " + user.name + " moved from channel " + fromChannel.name + " to " + toChannel.name);
     });
+    connection.on('user-recording', function( user, state ) {
+        console.log("User " + user.name + ( state ? ' started' : ' stopped' ) + " recording" );
+    });
     connection.on('user-disconnect', function(user) {
         console.log("User " + user.name + " disconnected");
     });
