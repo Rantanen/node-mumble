@@ -3,9 +3,15 @@
 var mumble = require('../');
 var fs = require('fs');
 
-var options = {
-    key: fs.readFileSync( 'private.pem' ),
-    cert: fs.readFileSync( 'public.pem' )
+var options = {};
+try {
+    options = {
+        key: fs.readFileSync( 'private.pem' ),
+        cert: fs.readFileSync( 'public.pem' )
+    };
+} catch( e ) {
+    console.log( 'Could not load private/public certificate files.' );
+    console.log( 'Trying to connect without client certififcate' );
 }
 
 var tree = "";
@@ -15,13 +21,13 @@ function buildChannelTree(channel, level) {
         tree += "   ";
     }
     tree += "  - " + channel.name + ": ";
-    for(var key in channel.users) {
-        var user = channel.users[key];
-        tree += user.name + ", "
+    for(var u in channel.users) {
+        var user = channel.users[u];
+        tree += user.name + ", ";
     }
     tree += "\n";
-    for(var key in channel.children) {
-        buildChannelTree(channel.children[key], level + 1);
+    for(var c in channel.children) {
+        buildChannelTree(channel.children[c], level + 1);
     }
 }
 
@@ -88,6 +94,12 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
     connection.on('message', function(message, actor) {
         actor.sendMessage("I received: '" + message + "'");
         connection.user.channel.sendMessage("I received: '" + message + "'");
+    });
+    connection.on('voice-start', function( user ) {
+        console.log( 'User ' + user.name + ' started voice transmission' );
+    });
+    connection.on('voice-end', function( user ) {
+        console.log( 'User ' + user.name + ' ended voice transmission' );
     });
     connection.authenticate('ExampleUser');
 });
