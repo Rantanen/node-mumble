@@ -11,7 +11,7 @@ try {
     };
 } catch( e ) {
     console.log( 'Could not load private/public certificate files.' );
-    console.log( 'Trying to connect without client certififcate' );
+    console.log( 'Trying to connect without client certificate.' );
 }
 
 var tree = "";
