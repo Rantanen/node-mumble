@@ -1,6 +1,6 @@
 "use strict";
 
-var mumble = require('mumble');
+var mumble = require('../');
 var fs = require('fs');
 
 var options = {
@@ -9,11 +9,11 @@ var options = {
 }
 
 console.log( 'Connecting' );
-mumble.connect( 'mumble://example.org', options, function ( error, connection ) {
+mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) {
     if( error ) { throw new Error( error ); }
 
     connection.authenticate( 'ExampleUser' );
-    
+
     connection.on( 'initialized', function () {
         console.log('connection ready');
         //...
