@@ -9,7 +9,7 @@ var options = {
 }
 
 console.log( 'Connecting' );
-mumble.connect( 'mumble://example.org', options, function ( error, connection ) {
+mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) {
     if( error ) { throw new Error( error ); }
 
     console.log( 'Connected' );
