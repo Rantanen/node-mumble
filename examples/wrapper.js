@@ -95,6 +95,10 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
         console.log("Channel " + channel.name + " removed");
     });
     connection.on('message', function(message, actor) {
+        if( handleCommand( message, actor, connection ) ) {
+            return;
+        }
+
         actor.sendMessage("I received: '" + message + "'");
         connection.user.channel.sendMessage("I received: '" + message + "'");
     });
@@ -106,3 +110,37 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
     });
     connection.authenticate('ExampleUser');
 });
+
+var commands = [
+    {
+        command: /!channel permissions: (.*)/,
+        action: function( context, channelName ) {
+            var channel = context.connection.channelByName( channelName );
+            if( !channel ) {
+                return context.actor.sendMessage( 'Unknown channel: ' + channelName );
+            }
+
+            channel.getPermissions( function( err, permissions ) {
+                if( err ) { return context.actor.sendMessage( 'Error: ' + err ); }
+                context.actor.sendMessage( channelName + ' permissions: ' + JSON.stringify( permissions ) );
+            });
+        }
+    }
+];
+
+var handleCommand = function( message, actor, connection ) {
+    for( var c in commands ) {
+        var cmd = commands[c];
+
+        var match = cmd.command.exec( message );
+        if( !match ) {
+            continue;
+        }
+
+        var params = match.slice(1);
+        params.unshift({ message: message, actor: actor, connection: connection });
+        cmd.action.apply( null, params );
+
+        return true;
+    }
+};
