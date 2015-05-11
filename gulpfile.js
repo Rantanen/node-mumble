@@ -23,14 +23,10 @@ var ghtoken = process.env.GITHUB_TOKEN;
 
 gulp.task( 'jshint', function() {
 
-    var stream = gulp.src( src_all )
+    return gulp.src( src_all )
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
-
-    if( false )
-        stream = stream.pipe(jshint.reporter( 'fail' ) );
-
-    return stream;
+        .pipe(jshint.reporter( 'jshint-stylish' ))
+        .pipe(jshint.reporter( 'fail' ));
 });
 
 gulp.task( 'docs', function() {
