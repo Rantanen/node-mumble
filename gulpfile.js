@@ -32,7 +32,11 @@ gulp.task( 'jshint', function() {
 gulp.task( 'docs', function() {
 
     return gulp.src( src )
-        .pipe( jsdoc2md({ 'param-list-format': 'list', plugin: 'dmd-clean' }) )
+        .pipe( jsdoc2md({
+            'param-list-format': 'list',
+            'plugin': 'dmd-clean',
+            'member-index-format': 'grouped',
+            'group-by': [ 'kind' ] }) )
         .pipe( filter( function(a) { return a.stat && a.stat.size; } ) )
         .pipe( rename( function( path ) { path.extname = '.md'; }) )
         .pipe( gulp.dest( 'docs' ) );
