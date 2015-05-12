@@ -4,6 +4,7 @@ install:
     - npm install
     - git config --global user.email "jubjub@jubjubnest.net"
     - git config --global user.name "Travis CI Build"
+    - git config --global push.default simple
 node_js:
     - "node"
 script:
