@@ -20,6 +20,7 @@
     "jitterbuffer": "~0.1.0"
   },
   "devDependencies": {
+    "dmd-clean": "^0.1.0",
     "event-stream": "^3.3.1",
     "gulp": "^3.8.11",
     "gulp-filter": "^2.0.2",
