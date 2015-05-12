@@ -2,6 +2,8 @@ language: node_js
 install:
     - npm install -g gulp
     - npm install
+    - git config --global user.email "jubjub@jubjubnest.net"
+    - git config --global user.name "Travis CI Build"
 node_js:
     - "node"
 script:
