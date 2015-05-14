@@ -5,7 +5,7 @@ var tls = require('tls');
 var mumbleutil = require('./lib/util');
 
 var MumbleConnection = require('./lib/MumbleConnection');
-var MumbleWrapper = require('./lib/MumbleWrapper');
+var MumbleClient = require('./lib/MumbleClient');
 
 exports.MumbleConnection = MumbleConnection;
 
@@ -38,7 +38,7 @@ exports.connect = function( url, options, done ) {
         }
         var connection = new MumbleConnection( socket, options );
 
-        done( null, new MumbleWrapper(connection) );
+        done( null, new MumbleClient(connection) );
         if( !connection.authSent && server.username ) {
             connection.authenticate( server.username );
         }
