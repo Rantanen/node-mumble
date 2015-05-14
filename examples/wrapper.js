@@ -125,6 +125,30 @@ var commands = [
                 context.actor.sendMessage( channelName + ' permissions: ' + JSON.stringify( permissions ) );
             });
         }
+    },
+    {
+        command: /!msg ([^:]+): (.*)/,
+        action: function( context, names, message ) {
+
+            var recipients = { session: [], channelId: [] };
+
+            names = names.split( ',' );
+            for( var n in names ) {
+                var name = names[n];
+
+                var user = context.connection.userByName( name );
+                if( user ) {
+                    recipients.session.push( user.session );
+                }
+
+                var channel = context.connection.channelByName( name );
+                if( channel ) {
+                    recipients.channelId.push( channel.id );
+                }
+            }
+
+            context.connection.sendMessage( message, recipients );
+        }
     }
 ];
 
