@@ -1,6 +1,8 @@
 
 Mumble client for Node.js
 =========================
+[![Build Status](https://travis-ci.org/Rantanen/node-mumble.svg?branch=master)](https://travis-ci.org/Rantanen/node-mumble)
+[![Code Climate](https://codeclimate.com/github/Rantanen/node-mumble/badges/gpa.svg)](https://codeclimate.com/github/Rantanen/node-mumble)
 
 This module implements mumble protocol handling for Node.js
 
