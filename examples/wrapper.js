@@ -49,7 +49,7 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
         console.log("\nThose were all users!");
     });
     connection.on('channel-move', function(channel, from, to) {
-        console.log("Channel " + channel.name + " was moved from " + from.name + " to " + to.name);
+        console.log("Channel " + channel.name + " was moved from " + from.name + " to " + to.name );
     });
     connection.on('channel-links-add', function(channel, links) {
         for(var key in links) {
@@ -64,23 +64,23 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
     connection.on('channel-rename', function(channel, oldName, newName) {
         console.log("Channel " + oldName + " was renamed to " + newName);
     });
-    connection.on('user-mute', function(user, muted) {
-        console.log("User " + user.name + " changed mute to: " + muted);
+    connection.on('user-mute', function(user, muted, actor) {
+        console.log("User " + user.name + " changed mute to: " + muted + " by " + actor.name );
     });
-    connection.on('user-self-deaf', function(user, deaf) {
-        console.log("User " + user.name + " changed deaf to: " + deaf);
+    connection.on('user-self-deaf', function(user, deaf, actor) {
+        console.log("User " + user.name + " changed deaf to: " + deaf + " by " + actor.name );
     });
-    connection.on('user-self-mute', function(user, muted) {
-        console.log("User " + user.name + " changed self-mute to: " + muted);
+    connection.on('user-self-mute', function(user, muted, actor) {
+        console.log("User " + user.name + " changed self-mute to: " + muted + " by " + actor.name );
     });
-    connection.on('user-suppress', function(user, suppress) {
-        console.log("User " + user.name + " changed suppress to: " + suppress);
+    connection.on('user-suppress', function(user, suppress, actor) {
+        console.log("User " + user.name + " changed suppress to: " + suppress + " by " + actor.name );
     });
-    connection.on('user-move', function(user, fromChannel, toChannel) {
-        console.log("User " + user.name + " moved from channel " + fromChannel.name + " to " + toChannel.name);
+    connection.on('user-move', function(user, fromChannel, toChannel, actor) {
+        console.log("User " + user.name + " moved from channel " + fromChannel.name + " to " + toChannel.name + " by " + actor.name );
     });
-    connection.on('user-recording', function( user, state ) {
-        console.log("User " + user.name + ( state ? ' started' : ' stopped' ) + " recording" );
+    connection.on('user-recording', function( user, state , actor) {
+        console.log("User " + user.name + ( state ? ' started' : ' stopped' ) + " recording"  + " by " + actor.name );
     });
     connection.on('user-disconnect', function(user) {
         console.log("User " + user.name + " disconnected");
