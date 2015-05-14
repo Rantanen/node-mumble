@@ -9,6 +9,17 @@ var MumbleClient = require('./lib/MumbleClient');
 
 exports.MumbleConnection = MumbleConnection;
 
+/**
+ * @summary Connect to the Mumble server.
+ *
+ * @description
+ * The URL specifies the Mumble server address. It can be either host with
+ * optional port specified with `host:port` or then the full `mumble://`.
+ *
+ * @param {String} url - Mumble server address.
+ * @param {Object} options - TLS options.
+ * @param {function(err,client)} done - Connection callback receiving {@link MumbleClient}.
+ */
 exports.connect = function( url, options, done ) {
 
     if( typeof options === 'function' ) {
