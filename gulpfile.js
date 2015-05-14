@@ -37,7 +37,7 @@ gulp.task( 'docs', function() {
             'plugin': 'dmd-clean',
             'member-index-format': 'grouped',
             'group-by': [ 'kind' ] }) )
-        .pipe( filter( function(a) { return a.stat && a.stat.size; } ) )
+        .pipe( filter( function(a) { return a.contents.length > 0; }))
         .pipe( rename( function( path ) { path.extname = '.md'; }) )
         .pipe( gulp.dest( 'docs' ) );
 });
