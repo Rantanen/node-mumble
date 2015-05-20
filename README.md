@@ -6,6 +6,14 @@ Mumble client for Node.js
 
 This module implements mumble protocol handling for Node.js
 
+Installation
+------------
+
+`npm install mumble`
+
+Example
+-------
+
     var mumble = require('mumble');
     var fs = require('fs');
 
