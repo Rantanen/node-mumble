@@ -9,4 +9,4 @@ node_js:
     - "node"
 script:
     - gulp
-    - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp upload-docs'
+    - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp upload-docs || true'
