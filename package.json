@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "protobufjs": "^3.6.0",
-    "electron-opus": "~0.1.0",
-    "electron-celt": "~0.1.0",
-    "electron-jitterbuffer": "~0.1.0"
+    "node-opus": "~0.1.0",
+    "celt": "~0.1.0",
+    "jitterbuffer": "~0.1.0"
   },
   "devDependencies": {
     "dmd-clean": "^0.1.0",
