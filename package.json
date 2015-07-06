@@ -11,7 +11,7 @@
     "url": "http://github.com/Rantanen/node-mumble.git"
   },
   "engines": {
-    "node": ">=0.10.0 && <1.0.0"
+    "node": ">=0.10.0"
   },
   "dependencies": {
     "protobufjs": "^4.0.0",
