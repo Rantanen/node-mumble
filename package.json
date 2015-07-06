@@ -14,8 +14,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "protobufjs": "^4.0.0",
     "node-opus": "~0.1.0",
-    "protobuf": "~0.11.0",
     "celt": "~0.1.0",
     "jitterbuffer": "~0.1.0"
   },
