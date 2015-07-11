@@ -6,8 +6,8 @@ var fs = require('fs');
 var options = {};
 try {
     options = {
-        key: fs.readFileSync( 'private.pem' ),
-        cert: fs.readFileSync( 'public.pem' )
+        key: fs.readFileSync( 'key.pem' ),
+        cert: fs.readFileSync( 'key.pem' )
     };
 } catch( e ) {
     console.log( 'Could not load private/public certificate files.' );
@@ -148,6 +148,22 @@ var commands = [
             }
 
             context.connection.sendMessage( message, recipients );
+        }
+    },
+    {
+        command: /!create ([^.]+)\.(.*)/,
+        action: function( context, parent, name ) {
+
+            var parent = context.connection.channelByName( parent );
+            parent.addSubChannel( name );
+        }
+    },
+    {
+        command: /!remove (.+)/,
+        action: function( context, name ) {
+
+            var channel = context.connection.channelByName( name );
+            channel.remove();
         }
     }
 ];
