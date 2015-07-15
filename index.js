@@ -55,7 +55,7 @@ exports.connect = function( url, options, done ) {
         }
 
         // If path was given, wait for init to be done before moving.
-        if( server.path ) {
+        if( server.path.length ) {
             connection.once('initialized', function () {
                 connection.joinPath( server.path );
             });
