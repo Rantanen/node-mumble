@@ -1,0 +1,21 @@
+
+Project owner
+-------------
+
+- Mikko Rantanen <https://github.com/Rantanen>
+
+Other contributors
+------------------
+
+- Frederick Gnodtke <https://github.com/Prior99>
+  - MumbleClient API layer
+  - Wiki documentation
+  - Bug fixing
+
+- Justin Chase <https://github.com/justinmchase>
+  - Replacing protobuf with protobufjs
+  - Exposing server error messages
+
+- Oskar Homburg <https://github.com/timeDev>
+- Seandon Mooy <https://github.com/erulabs>
+- @Frogomeli <https://github.com/Frogomeli>

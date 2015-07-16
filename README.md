@@ -48,3 +48,10 @@ Example
 Take a look at the advanced example in "examples/advanced.js"!
 
 Please also take a look at the [wiki](https://github.com/Rantanen/node-mumble/wiki/API) for an complete documentation of the API.
+
+Contributing
+------------
+
+Pull requests, found issues, etc. are welcome. The authors are tracked in the
+AUTHORS file. This file is kept up to date manually so authors are encouraged
+to pull request the necessary changes to the AUTHORS themselves.
