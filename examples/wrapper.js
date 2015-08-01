@@ -165,7 +165,16 @@ var commands = [
             var channel = context.connection.channelByName( name );
             channel.remove();
         }
-    }
+    },
+
+    {
+        command: /!join (.+)/,
+        action: function( context, name ) {
+
+            var channel = context.connection.channelByPath( name );
+            channel.join();
+        }
+    },
 ];
 
 var handleCommand = function( message, actor, connection ) {
