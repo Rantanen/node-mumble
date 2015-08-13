@@ -55,3 +55,7 @@ Contributing
 Pull requests, found issues, etc. are welcome. The authors are tracked in the
 AUTHORS file. This file is kept up to date manually so authors are encouraged
 to pull request the necessary changes to the AUTHORS themselves.
+
+Related Projects
+----------------
+- [node-mumble-audio](https://github.com:EvolveLabs/node-mumble-audio.git) Add local capture and playback to node-mumble.
