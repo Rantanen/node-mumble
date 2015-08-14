@@ -20,6 +20,8 @@
     "jitterbuffer": "~0.1.0"
   },
   "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-spies": "^0.7.0",
     "dmd-clean": "^0.1.0",
     "event-stream": "^3.3.1",
     "gulp": "^3.8.11",

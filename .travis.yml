@@ -9,4 +9,8 @@ node_js:
     - "node"
 script:
     - gulp
+    - istanbul cover node_modules/mocha/bin/_mocha
     - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp upload-docs || true'
+after_script:
+    - codeclimate < coverage/lcov.info
+    - node_modules/codecov.io/bin/codecov.io.js < coverage/coverage.json
