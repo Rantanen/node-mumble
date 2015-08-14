@@ -42,7 +42,10 @@ describe( 'MumbleConnection', function() {
             conn2.on( 'voice', function(f) {
                 var delay = Date.now() - start;
 
-                delay.should.be.below( 100 );
+                // Delay is affected by the server location relative to test
+                // runner. In Travis' case the runner is most likely in the US
+                // while the test server is in Europe.
+                delay.should.be.below( 200 );
                 done();
             });
         });
