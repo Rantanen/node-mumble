@@ -1,7 +1,10 @@
 language: node_js
 install:
     - npm install -g gulp
+    - npm install -g istanbul
+    - npm install -g codeclimate-test-reporter
     - npm install
+    - npm install codecov.io
     - git config --global user.email "jubjub@jubjubnest.net"
     - git config --global user.name "Travis CI Build"
     - git config --global push.default simple
