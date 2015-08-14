@@ -59,17 +59,15 @@ describe( 'MumbleConnection', function() {
             // Single frame
             var b = new Buffer( conn1.connection.FRAME_SIZE * 2 );
 
-            var spy = chai.spy();
-            conn2.on( 'voice', spy );
-
             var times = 10;
             for( var i = 0; i < times; i++ )
                 conn1.sendVoice( b );
 
-            setTimeout( function() {
-                spy.should.have.been.called.exactly( times );
-                done();
-            }, 1000 );
+            conn2.on( 'voice', function() {
+                times--;
+                if( times === 0 )
+                    done();
+            });
         });
     });
 
