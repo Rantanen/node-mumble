@@ -59,7 +59,7 @@ describe( 'MumbleConnection', function() {
             // Single frame
             var b = new Buffer( conn1.connection.FRAME_SIZE * 2 );
 
-            var times = 10;
+            var times = 5;
             for( var i = 0; i < times; i++ )
                 conn1.sendVoice( b );
 
