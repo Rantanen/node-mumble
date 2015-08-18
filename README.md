@@ -21,7 +21,7 @@ var mumble = require('mumble'),
 var options = {
     key: fs.readFileSync( 'private.pem' ),
     cert: fs.readFileSync( 'public.pem' )
-}
+};
 
 console.log( 'Connecting' );
 mumble.connect( 'mumble://example.org', options, function ( error, connection ) {
