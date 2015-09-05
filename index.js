@@ -60,9 +60,12 @@ exports.connect = function( url, options, done ) {
                 connection.joinPath( server.path );
             });
         }
+
+        // The connection will now own listening for socket errors.
+        socket.removeListener('error', done);
     });
 
-    socket.on('error', done);
+    socket.once('error', done);
 };
 
 exports.celtVersions = mumbleutil.celtVersions;
