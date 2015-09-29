@@ -19,8 +19,8 @@ var mumble = require('mumble'),
     fs = require('fs');
 
 var options = {
-    key: fs.readFileSync( 'private.pem' ),
-    cert: fs.readFileSync( 'public.pem' )
+    key: fs.readFileSync( 'key.pem' ),
+    cert: fs.readFileSync( 'cert.pem' )
 };
 
 console.log( 'Connecting' );
@@ -46,6 +46,8 @@ var onVoice = function( voice ) {
     var pcmData = voice;
 };
 ```
+
+Use `openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem` to generate the certificate.
 
 Take a look at the advanced example in "examples/advanced.js"!
 
