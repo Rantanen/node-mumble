@@ -62,4 +62,4 @@ to pull request the necessary changes to the AUTHORS themselves.
 
 Related Projects
 ----------------
-- [node-mumble-audio](https://github.com:EvolveLabs/node-mumble-audio.git) Add local capture and playback to node-mumble.
+- [node-mumble-audio](https://github.com/EvolveLabs/node-mumble-audio) Add local capture and playback to node-mumble.
