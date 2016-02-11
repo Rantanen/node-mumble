@@ -1,4 +1,3 @@
-
 "use strict";
 
 var tls = require('tls');
@@ -8,64 +7,76 @@ var MumbleConnection = require('./lib/MumbleConnection');
 var MumbleClient = require('./lib/MumbleClient');
 
 exports.MumbleConnection = MumbleConnection;
+exports.celtVersions = mumbleutil.celtVersions;
+
+/**
+ * @summary Connection manager
+ *
+ * @description
+ * A connection tool to decouple connecting to the server
+ * from the module itself.
+ *
+ * The URL specified to the connection manager the Mumble server address.
+ * It can be either host with optional port specified with `host:port`
+ * or then the full `mumble://`.
+ *
+ * @constructor
+ * @param {String} url - Mumble server address.
+ * @param {Object} options - TLS options.
+ */
+function ConnectionManager(url, options) {
+  this.server = mumbleutil.parseUrl( url );
+
+  this.options = options || {};
+
+  // If the options.rejectUnauthorized isn't defined default it to false.
+  // We'll do this since most Mumble server certs are self signed anyway.
+  //
+  // The if catches null, false and other falsy values as well,
+  // but this doesn't affect anything as we set it to false anyway.
+  if( !this.options.rejectUnauthorized ) {
+      this.options.rejectUnauthorized = false;
+  }
+
+};
 
 /**
  * @summary Connect to the Mumble server.
  *
  * @description
- * The URL specifies the Mumble server address. It can be either host with
- * optional port specified with `host:port` or then the full `mumble://`.
+ * Connects to the Mumble server provided in the constructor
  *
- * @param {String} url - Mumble server address.
- * @param {Object} options - TLS options.
  * @param {function(err,client)} done - Connection callback receiving {@link MumbleClient}.
  */
-exports.connect = function( url, options, done ) {
+ConnectionManager.prototype.connect = function(done) {
+  var self = this;
 
-    if( typeof options === 'function' ) {
-        done = options;
-        options = {};
+  self.socket = tls.connect( self.server.port, self.server.host, self.options, function ( err ) {
+    if(self.options.key !== undefined) {
+        delete self.options.key;
+    }
+    if(self.options.cert !== undefined) {
+        delete self.options.cert;
+    }
+    var connection = new MumbleConnection( self.socket, self.options );
+
+    done( null, new MumbleClient(connection) );
+    if( !connection.authSent && self.server.username ) {
+        connection.authenticate( self.server.username );
     }
 
-    var server = mumbleutil.parseUrl( url );
-
-    options = options || {};
-
-    // If the options.rejectUnauthorized isn't defined default it to false.
-    // We'll do this since most Mumble server certs are self signed anyway.
-    //
-    // The if catches null, false and other falsy values as well,
-    // but this doesn't affect anything as we set it to false anyway.
-    if( !options.rejectUnauthorized ) {
-        options.rejectUnauthorized = false;
+    // If path was given, wait for init to be done before moving.
+    if( self.server.path.length ) {
+        connection.once('initialized', function () {
+            connection.joinPath( self.server.path );
+        });
     }
 
-    var socket = tls.connect( server.port, server.host, options, function ( err ) {
-        if(options.key !== undefined) {
-            delete options.key;
-        }
-        if(options.cert !== undefined) {
-            delete options.cert;
-        }
-        var connection = new MumbleConnection( socket, options );
+    // The connection will now own listening for socket errors.
+    self.socket.removeListener('error', done);
+  });
 
-        done( null, new MumbleClient(connection) );
-        if( !connection.authSent && server.username ) {
-            connection.authenticate( server.username );
-        }
-
-        // If path was given, wait for init to be done before moving.
-        if( server.path.length ) {
-            connection.once('initialized', function () {
-                connection.joinPath( server.path );
-            });
-        }
-
-        // The connection will now own listening for socket errors.
-        socket.removeListener('error', done);
-    });
-
-    socket.once('error', done);
+  self.socket.once('error', done);
 };
 
-exports.celtVersions = mumbleutil.celtVersions;
+exports.ConnetionManager = ConnectionManager;
