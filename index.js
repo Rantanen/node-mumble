@@ -38,7 +38,7 @@ function ConnectionManager(url, options) {
       this.options.rejectUnauthorized = false;
   }
 
-};
+}
 
 /**
  * @summary Connect to the Mumble server.
@@ -48,35 +48,35 @@ function ConnectionManager(url, options) {
  *
  * @param {function(err,client)} done - Connection callback receiving {@link MumbleClient}.
  */
-ConnectionManager.prototype.connect = function(done) {
-  var self = this;
+ConnectionManager.prototype.connect = function connect(done) {
+    var self = this;
 
-  self.socket = tls.connect( self.server.port, self.server.host, self.options, function ( err ) {
-    if(self.options.key !== undefined) {
-        delete self.options.key;
-    }
-    if(self.options.cert !== undefined) {
-        delete self.options.cert;
-    }
-    var connection = new MumbleConnection( self.socket, self.options );
+    self.socket = tls.connect( self.server.port, self.server.host, self.options, function ( err ) {
+        if(self.options.key !== undefined) {
+            delete self.options.key;
+        }
+        if(self.options.cert !== undefined) {
+            delete self.options.cert;
+        }
+        var connection = new MumbleConnection( self.socket, self.options );
 
-    done( null, new MumbleClient(connection) );
-    if( !connection.authSent && self.server.username ) {
-        connection.authenticate( self.server.username );
-    }
+        done( null, new MumbleClient(connection) );
+        if( !connection.authSent && self.server.username ) {
+            connection.authenticate( self.server.username );
+        }
 
-    // If path was given, wait for init to be done before moving.
-    if( self.server.path.length ) {
-        connection.once('initialized', function () {
-            connection.joinPath( self.server.path );
-        });
-    }
+        // If path was given, wait for init to be done before moving.
+        if( self.server.path.length ) {
+            connection.once('initialized', function () {
+                connection.joinPath( self.server.path );
+            });
+        }
 
-    // The connection will now own listening for socket errors.
-    self.socket.removeListener('error', done);
-  });
+        // The connection will now own listening for socket errors.
+        self.socket.removeListener('error', done);
+    });
 
-  self.socket.once('error', done);
+    self.socket.once('error', done);
 };
 
 exports.ConnectionManager = ConnectionManager;
