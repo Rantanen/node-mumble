@@ -79,4 +79,4 @@ ConnectionManager.prototype.connect = function(done) {
   self.socket.once('error', done);
 };
 
-exports.ConnetionManager = ConnectionManager;
+exports.ConnectionManager = ConnectionManager;
