@@ -13,12 +13,12 @@ exports.twoConnections = function twoConnections( done, cb ) {
 
     var connMngr = new mumble.ConnectionManager( process.env.MUMBLE_URL );
     var conn1, conn2;
-    connMngr.connect( process.env.MUMBLE_URL, function( error, conn ) {
+    connMngr.connect( function( error, conn ) {
         if( error ) cb( error, null, null, myDone );
         conn.authenticate( 'TestSender' + ( i++ ) );
         conn.on( 'initialized', init.bind( null, conn, null ) );
     });
-    connMngr.connect( process.env.MUMBLE_URL, function( error, conn ) {
+    connMngr.connect( function( error, conn ) {
         if( error ) cb( error, null, null, myDone );
         conn.authenticate( 'TestReceiver' + ( i++ ) );
         conn.on( 'initialized', init.bind( null, null, conn ) );
