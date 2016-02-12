@@ -6,8 +6,11 @@ var mumbleutil = require('./lib/util');
 
 var MumbleConnection = require('./lib/MumbleConnection');
 var MumbleClient = require('./lib/MumbleClient');
+var ConnectionManager = require('./lib/ConnectionManager');
 
 exports.MumbleConnection = MumbleConnection;
+exports.celtVersions = mumbleutil.celtVersions;
+exports.ConnectionManager = ConnectionManager;
 
 /**
  * @summary Connect to the Mumble server.
@@ -67,5 +70,3 @@ exports.connect = function( url, options, done ) {
 
     socket.once('error', done);
 };
-
-exports.celtVersions = mumbleutil.celtVersions;

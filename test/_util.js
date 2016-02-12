@@ -4,7 +4,7 @@
 var mumble = require( '../' );
 var i = 0;
 
-exports.twoConnections = function( done, cb ) {
+exports.twoConnections = function twoConnections( done, cb ) {
     var myDone = function() {
         if( conn1 ) conn1.disconnect();
         if( conn2 ) conn2.disconnect();
