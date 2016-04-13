@@ -4,7 +4,16 @@
 var mumble = require( '../' );
 var i = 0;
 
-exports.twoConnections = function( done, cb ) {
+exports.twoConnections = function( done, config, cb ) {
+
+    if( typeof config === 'function' ) {
+        cb = config;
+        config = {
+            name1: 'TestSender',
+            name2: 'TestReceiver',
+        };
+    }
+
     var myDone = function() {
         if( conn1 ) conn1.disconnect();
         if( conn2 ) conn2.disconnect();
@@ -14,12 +23,12 @@ exports.twoConnections = function( done, cb ) {
     var conn1, conn2;
     mumble.connect( process.env.MUMBLE_URL, function( error, conn ) {
         if( error ) cb( error, null, null, myDone );
-        conn.authenticate( 'TestSender' + ( i++ ) );
+        conn.authenticate( config.name1 + ( i++ ) );
         conn.on( 'initialized', init.bind( null, conn, null ) );
     });
     mumble.connect( process.env.MUMBLE_URL, function( error, conn ) {
         if( error ) cb( error, null, null, myDone );
-        conn.authenticate( 'TestReceiver' + ( i++ ) );
+        conn.authenticate( config.name2 + ( i++ ) );
         conn.on( 'initialized', init.bind( null, null, conn ) );
     });
 
