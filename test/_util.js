@@ -1,5 +1,5 @@
 
-"use strict";
+'use strict';
 
 var mumble = require( '../' );
 var i = 0;
@@ -22,15 +22,15 @@ exports.twoConnections = function( done, config, cb ) {
 
     var conn1, conn2;
     mumble.connect( process.env.MUMBLE_URL, function( error, conn ) {
-        if( error ) cb( error, null, null, myDone );
+        if( error ) return cb( error, null, null, myDone );
         conn.authenticate( config.name1 + ( i++ ) );
         conn.on( 'initialized', init.bind( null, conn, null ) );
-    });
+    } );
     mumble.connect( process.env.MUMBLE_URL, function( error, conn ) {
-        if( error ) cb( error, null, null, myDone );
+        if( error ) return cb( error, null, null, myDone );
         conn.authenticate( config.name2 + ( i++ ) );
         conn.on( 'initialized', init.bind( null, null, conn ) );
-    });
+    } );
 
     var init = function( c1, c2 ) {
         conn1 = conn1 || c1;
@@ -46,7 +46,7 @@ exports.twoConnections = function( done, config, cb ) {
 exports.levelBuffer = function( samples, level ) {
     var b = new Buffer( samples * 2 );
     for( var i = 0; i < b.length / 2; i++ ) {
-        b.writeInt16LE( level, i*2 );
+        b.writeInt16LE( level, i * 2 );
     }
 
     return b;
@@ -56,7 +56,7 @@ exports.printFrame = function( frame ) {
     var c = 0;
     var sum = 0;
     for( var i = 0; i < frame.length / 2; i++ ) {
-        var v = frame.readInt16LE( i*2 );
+        var v = frame.readInt16LE( i * 2 );
         sum += v;
         c++;
         if( c === 50 ) {

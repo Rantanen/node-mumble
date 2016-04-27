@@ -1,11 +1,9 @@
-"use strict";
+'use strict';
 
-var tls = require('tls');
-var mumbleutil = require('./lib/util');
+var mumbleutil = require( './lib/util' );
 
-var MumbleConnection = require('./lib/MumbleConnection');
-var MumbleClient = require('./lib/MumbleClient');
-var MumbleConnectionManager = require('./lib/MumbleConnectionManager');
+var MumbleConnection = require( './lib/MumbleConnection' );
+var MumbleConnectionManager = require( './lib/MumbleConnectionManager' );
 
 exports.MumbleConnection = MumbleConnection;
 exports.MumbleConnectionManager = MumbleConnectionManager;
@@ -19,9 +17,10 @@ exports.celtVersions = mumbleutil.celtVersions;
  * The URL specifies the Mumble server address. It can be either host with
  * optional port specified with `host:port` or then the full `mumble://`.
  *
- * @param {String} url - Mumble server address.
+ * @param {string} url - Mumble server address.
  * @param {Object} [options] - TLS options.
- * @param {function(err,client)} done - Connection callback receiving {@link MumbleClient}.
+ * @param {function(err,client)} done
+ *      Connection callback receiving {@link MumbleClient}.
  *
  * @returns {ConnectionManager} The manager used to establish the connection.
  */

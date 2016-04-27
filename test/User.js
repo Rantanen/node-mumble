@@ -1,8 +1,7 @@
 
-"use strict";
+'use strict';
 
 var chai = require( 'chai' );
-var mumble = require( '../' );
 var util = require( './_util' );
 
 chai.use( require( 'chai-spies' ) );
@@ -30,7 +29,7 @@ describe( 'User', function() {
                 'prioritySpeaker' ];
 
             for( var f in fields ) {
-                var field = fields[f];
+                var field = fields[ f ];
                 should.equal( user1remote[ field ], conn1.user[ field ],
                         'Field ' + field + ' isn\'t equal' );
             }
@@ -43,7 +42,7 @@ describe( 'User', function() {
                 events++;
                 if( events === 2 )
                     doAssert();
-            });
+            } );
 
             conn1.user.on( 'self-mute', function() {
 
@@ -52,7 +51,7 @@ describe( 'User', function() {
                 events++;
                 if( events === 2 )
                     doAssert();
-            });
+            } );
 
             var asserts = 0;
 
@@ -62,8 +61,8 @@ describe( 'User', function() {
 
                 asserts++;
                 if( asserts === 3 )
-                    done();
-            });
+                    return done();
+            } );
 
             conn2.on( 'user-self-mute', function( user, value ) {
                 user.name.should.equal( conn1.user.name );
@@ -71,24 +70,24 @@ describe( 'User', function() {
 
                 asserts++;
                 if( asserts === 3 )
-                    done();
-            });
+                    return done();
+            } );
 
 
             var doAssert = function() {
 
                 for( var f in fields ) {
-                    var field = fields[f];
+                    var field = fields[ f ];
                     should.equal( user1remote[ field ], conn1.user[ field ],
                             'Field ' + field + ' isn\'t equal' );
                 }
 
                 asserts++;
                 if( asserts === 3 )
-                    done();
+                    return done();
             };
 
             conn1.user.setSelfMute( true );
-        });
-    });
-});
+        } );
+    } );
+} );

@@ -1,10 +1,9 @@
 
-"use strict";
+'use strict';
 
 var chai = require( 'chai' );
 var mumble = require( '../' );
 var MumbleConnectionManager = mumble.MumbleConnectionManager;
-var util = require( './_util' );
 
 chai.use( require( 'chai-spies' ) );
 var should = chai.should();
@@ -19,8 +18,8 @@ describe( 'mumble', function() {
             mumble.connect( process.env.MUMBLE_URL, function( err, conn ) {
                 should.not.exist( err );
                 done();
-            });
-        });
+            } );
+        } );
 
         it( 'should be able to authenticate', function( done ) {
 
@@ -30,12 +29,12 @@ describe( 'mumble', function() {
                 conn.on( 'initialized', function() {
                     conn.user.name.should.equal( 'NodeTestUser' );
                     done();
-                });
+                } );
 
                 conn.authenticate( 'NodeTestUser' );
-            });
-        });
-    });
+            } );
+        } );
+    } );
 
     describe( 'MumbleConnectionManager', function() {
 
@@ -45,8 +44,8 @@ describe( 'mumble', function() {
             manager.connect( function( err, conn ) {
                 should.not.exist( err );
                 done();
-            });
-        });
+            } );
+        } );
 
         it( 'should be able to authenticate', function( done ) {
 
@@ -57,10 +56,10 @@ describe( 'mumble', function() {
                 conn.on( 'initialized', function() {
                     conn.user.name.should.equal( 'NodeTestUser2' );
                     done();
-                });
+                } );
 
                 conn.authenticate( 'NodeTestUser2' );
-            });
-        });
-    });
-});
+            } );
+        } );
+    } );
+} );
