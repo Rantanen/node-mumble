@@ -4,15 +4,15 @@ var mumble = require('../');
 var fs = require('fs');
 
 var options = {
-    key: fs.readFileSync( 'private.pem' ),
-    cert: fs.readFileSync( 'public.pem' )
+    //key: fs.readFileSync( 'private.pem' ),
+    //cert: fs.readFileSync( 'public.pem' )
 }
 
 console.log( 'Connecting' );
 mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) {
     if( error ) { throw new Error( error ); }
 
-    connection.authenticate( 'ExampleUser' );
+    connection.authenticate( 'AdvancedUser' );
 
     connection.on( 'initialized', function () {
         console.log('connection ready');
@@ -47,4 +47,8 @@ mumble.connect( process.env.MUMBLE_URL, options, function ( error, connection ) 
         var pcmData = event.data;
     });
 
+    connection.on( 'userState', function( state ) {
+        console.log( state );
+        console.log( connection.userBySession( state.session ) );
+    });
 });

@@ -1,8 +1,8 @@
 
-"use strict";
+'use strict';
 
 var gulp = require( 'gulp' );
-var jshint = require( 'gulp-jshint' );
+var eslint = require( 'gulp-eslint' );
 var jsdoc2md = require( 'gulp-jsdoc-to-markdown' );
 var rename = require( 'gulp-rename' );
 var filter = require( 'gulp-filter' );
@@ -15,45 +15,45 @@ var src = [
     'lib/**/*.js'
 ];
 
-var src_all = src.concat([
+var srcAll = src.concat( [
     'gulpfile.js'
-]);
+] );
 
 var ghtoken = process.env.GITHUB_TOKEN;
 
-gulp.task( 'jshint', function() {
+gulp.task( 'eslint', function() {
 
-    return gulp.src( src_all )
-        .pipe(jshint())
-        .pipe(jshint.reporter( 'jshint-stylish' ))
-        .pipe(jshint.reporter( 'fail' ));
-});
+    return gulp.src( srcAll )
+        .pipe( eslint() )
+        .pipe( eslint.format() )
+        .pipe( eslint.failAfterError() );
+} );
 
 gulp.task( 'docs', function() {
 
     return gulp.src( src )
-        .pipe( jsdoc2md({
+        .pipe( jsdoc2md( {
             'param-list-format': 'list',
             'plugin': 'dmd-clean',
             'member-index-format': 'grouped',
-            'group-by': [ 'kind' ] }) )
-        .pipe( filter( function(a) { return a.contents.length > 0; }))
-        .pipe( rename( function( path ) { path.extname = '.md'; }) )
+            'group-by': [ 'kind' ] } ) )
+        .pipe( filter( function( a ) { return a.contents.length > 0; } ) )
+        .pipe( rename( function( path ) { path.extname = '.md'; } ) )
         .pipe( gulp.dest( 'docs' ) );
-});
+} );
 
-gulp.task( 'upload-docs', [ 'docs' ], shell.task([
+gulp.task( 'upload-docs', [ 'docs' ], shell.task( [
     'git clone https://' + ghtoken + ':@github.com/Rantanen/node-mumble.wiki.git wiki',
     'cp docs/*.md wiki/api/',
     'cd wiki && git add api/*.md',
     'cd wiki && git commit -m "API documentation update" && git push || echo ',
     'rm -rf wiki'
-]));
+] ) );
 
 gulp.task( 'check-mode', function() {
 
     var fail = [];
-    return gulp.src( src_all )
+    return gulp.src( srcAll )
         .pipe( es.through( function( file, cb ) {
             var mode = file.stat.mode;
             var requiredMode = parseInt( '0600', 8 );
@@ -62,11 +62,12 @@ gulp.task( 'check-mode', function() {
             file.checkMode = { fail: false };
 
             if( mode & requiredMode !== requiredMode ) {
-                gutil.log( "Warning:", file.path, "doesn't have read/write permissions" );
+                gutil.log( 'Warning:',
+                        file.path, 'doesn\'t have read/write permissions' );
                 file.checkMode.fail = true;
             }
             if( mode & deniedMode > 0 ) {
-                gutil.log( "Warning:", file.path, "has executable permission" );
+                gutil.log( 'Warning:', file.path, 'has executable permission' );
                 file.checkMode.fail = true;
             }
 
@@ -77,10 +78,11 @@ gulp.task( 'check-mode', function() {
         function() {
             if( fail.length > 0 )
                 this.emit( 'error', new gutil.PluginError( 'check-mode', {
-                    message: 'Check-mode failed for:\n        ' + fail.join( ',\n        ' ),
+                    message: 'Check-mode failed for:\n' +
+                            '        ' + fail.join( ',\n        ' ),
                     showStack: false
-                }));
-        }));
-});
+                } ) );
+        } ) );
+} );
 
-gulp.task( 'default', [ 'jshint', 'check-mode' ]);
+gulp.task( 'default', [ 'eslint', 'check-mode' ] );

@@ -60,6 +60,16 @@ Pull requests, found issues, etc. are welcome. The authors are tracked in the
 AUTHORS file. This file is kept up to date manually so authors are encouraged
 to pull request the necessary changes to the AUTHORS themselves.
 
+### Running tests
+
+Tests can be executed with `mocha`. By default the tests are executed against
+local (localhost) Mumble server in the default port. To use a remote server
+or non-default port, launch `mocha` with `MUMBLE_URL` environment variable set:
+
+```
+MUMBLE_URL=my.mumble.server.com mocha
+```
+
 Related Projects
 ----------------
 - [node-mumble-audio](https://github.com/EvolveLabs/node-mumble-audio) Add local capture and playback to node-mumble.

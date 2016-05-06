@@ -1,8 +1,7 @@
 
-"use strict";
+'use strict';
 
 var chai = require( 'chai' );
-var mumble = require( '../' );
 var util = require( './_util' );
 
 chai.use( require( 'chai-spies' ) );
@@ -19,14 +18,14 @@ describe( 'MumbleConnection', function() {
             var gotVoice = false;
             conn2.on( 'voice', function( voice ) {
                 gotVoice = true;
-            });
+            } );
 
             setTimeout( function() {
                 gotVoice.should.be.false;
                 done();
             }, 1000 );
-        });
-    });
+        } );
+    } );
 
     it( 'should not have too big of a delay', function( done ) {
 
@@ -39,7 +38,7 @@ describe( 'MumbleConnection', function() {
             var start = Date.now();
             conn1.sendVoice( b );
 
-            conn2.on( 'voice', function(f) {
+            conn2.on( 'voice', function( f ) {
                 var delay = Date.now() - start;
 
                 // Delay is affected by the server location relative to test
@@ -47,9 +46,9 @@ describe( 'MumbleConnection', function() {
                 // while the test server is in Europe.
                 delay.should.be.below( 300 );
                 done();
-            });
-        });
-    });
+            } );
+        } );
+    } );
 
     it( 'should not generate extra frames', function( done ) {
 
@@ -66,17 +65,16 @@ describe( 'MumbleConnection', function() {
             conn2.on( 'voice', function() {
                 times--;
                 if( times === 0 )
-                    done();
-            });
-        });
-    });
+                    return done();
+            } );
+        } );
+    } );
 
     it( 'should not drop the first voice packet', function( done ) {
 
         util.twoConnections( done, function( err, conn1, conn2, done ) {
             should.not.exist( err );
 
-            var b = new Buffer( conn1.connection.FRAME_SIZE * 2 );
             var sentFrame;
 
             // Override the sendEncodedFrame of conn1 to catch the
@@ -92,20 +90,19 @@ describe( 'MumbleConnection', function() {
 
             conn2.on( 'voice-frame', function( packets ) {
                 if( packets.length === 0 ) return;
-                var frame = packets[0].frame;
+                var frame = packets[ 0 ].frame;
 
                 frame.should.deep.equal( sentFrame );
                 done();
-            });
-        });
-    });
+            } );
+        } );
+    } );
 
     it( 'should not drop the first voice packet after silence', function( done ) {
 
         util.twoConnections( done, function( err, conn1, conn2, done ) {
             should.not.exist( err );
 
-            var b = new Buffer( conn1.connection.FRAME_SIZE * 2 );
             var sentFrame, okToEnd = false;
 
             // Override the sendEncodedFrame of conn1 to catch the
@@ -133,7 +130,7 @@ describe( 'MumbleConnection', function() {
 
             conn2.on( 'voice-frame', function( packets ) {
                 if( packets.length === 0 ) return;
-                var frame = packets[0].frame;
+                var frame = packets[ 0 ].frame;
 
                 if( okToEnd ) {
                     spy.should.have.been.called.once();
@@ -142,12 +139,12 @@ describe( 'MumbleConnection', function() {
                 frame.should.deep.equal( sentFrame );
 
                 if( okToEnd ) {
-                    done();
+                    return done();
                 }
-            });
+            } );
 
-        });
-    });
+        } );
+    } );
 
     it( 'should contain audio in the first packet', function( done ) {
 
@@ -168,10 +165,10 @@ describe( 'MumbleConnection', function() {
                 // We'll accept 'slight' level changes due to lossy encoding.
                 diff.should.be.below( 0.25 );
                 done();
-            });
+            } );
 
             var buffer = util.levelBuffer( conn1.connection.FRAME_SIZE, level );
             conn1.sendVoice( buffer );
-        });
-    });
-});
+        } );
+    } );
+} );
