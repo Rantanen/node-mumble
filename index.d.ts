@@ -12,7 +12,7 @@ export interface InputStream extends NodeJS.WritableStream {
     signed: boolean;
     endianness: "BE" | "LE";
     processInterval: NodeJS.Timer;
-    processObserver: EventEmitter;
+    processObserver: NodeJS.EventEmitter;
     frameQueue: Buffer[];
     lastFrame: Buffer;
     lastFrameWritten: number;
@@ -25,7 +25,7 @@ export interface OutputStream extends NodeJS.ReadableStream {
     close: () => void;
     connection: Connection;
     sessionId: number;
-    eventEmitter: EventEmitter;
+    eventEmitter: NodeJS.EventEmitter;
     frames: Buffer[];
     writtenUntil: number;
     noEmptyFrames: boolean;
