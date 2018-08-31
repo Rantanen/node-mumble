@@ -1,7 +1,7 @@
 {
   "name": "mumble",
   "description": "Mumble client library",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "author": "Mikko Rantanen <jubjub@jubjubnest.net>",
   "homepage": "https://github.com/Rantanen/node-mumble",
   "bugs": "https://github.com/Rantanen/node-mumble/issues",
