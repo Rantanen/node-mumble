@@ -7,10 +7,12 @@
 # Add imports for stream
 sed -i '1 i\import { Writable, Readable } from "stream"; ' ./index.d.ts
 sed -i '1 i\import { Socket } from "net"; ' ./index.d.ts
+sed -i '1 i\import { EventEmitter } from "events"; ' ./index.d.ts
 
 # Fix classes that extend Writable/ReadableStream
 sed -i -E "s/declare class MumbleInputStream/declare class MumbleInputStream extends Writable/g" ./index.d.ts
 sed -i -E "s/declare class MumbleOutputStream/declare class MumbleOutputStream extends Readable/g" ./index.d.ts
+sed -i -E "s/declare class MumbleConnection /declare class MumbleConnection extends EventEmitter /g" ./index.d.ts
 
 set -e
 ./node_modules/.bin/tsc ./index.d.ts

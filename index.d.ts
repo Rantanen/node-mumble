@@ -1,3 +1,4 @@
+import { EventEmitter } from "events"; 
 import { Socket } from "net"; 
 import { Writable, Readable } from "stream"; 
 declare class Channel {
@@ -207,7 +208,7 @@ declare interface sendMessage_recipients {
     channel_id: number[];
 }
 
-declare class MumbleConnection {
+declare class MumbleConnection extends EventEmitter {
     /**
      * Mumble connection
      * @param socket - SSL socket connected to the server.
@@ -327,9 +328,16 @@ declare class MumbleConnectionManager {
      * Connects to the Mumble server provided in the constructor
      * @param done Connection callback receiving {@link MumbleClient}.
      */
-    connect(done: Function): void;
+    connect(done: ConnectionCallback): void;
 
 }
+
+/**
+ * 
+ * @param err - An error of one occured
+ * @param client - The mumble client for the connection
+ */
+declare type ConnectionCallback = (err: Error | null, client: MumbleClient)=>void;
 
 /**
  * Error class for delivering server errors.
