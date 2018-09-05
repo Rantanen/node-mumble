@@ -15,6 +15,10 @@ declare class Channel {
 
     users: User[];
 
+    id: number;
+
+    name: string;
+
     join(): void;
 
     /**
@@ -40,7 +44,7 @@ declare class Channel {
 
 }
 
-declare class MumbleClient {
+declare class MumbleClient extends EventEmitter {
     /**
      * 
      * Instances should be created with Mumble.connect().
@@ -466,19 +470,19 @@ declare class User {
      * 
      * @param comment - The new comment
      */
-    setComment(comment: String): void;
+    setComment(comment: string): void;
 
     /**
      * 
      * @param isSelfDeaf - The new self deafened state
      */
-    setSelfDeaf(isSelfDeaf: Boolean): void;
+    setSelfDeaf(isSelfDeaf: boolean): void;
 
     /**
      * 
      * @param isSelfMute - The new self muted state
      */
-    setSelfMute(isSelfMute: Boolean): void;
+    setSelfMute(isSelfMute: boolean): void;
 
     /**
      * 
@@ -505,7 +509,7 @@ declare class User {
      *        talking.
      * @returns Output stream.
      */
-    outputStream(noEmptyFrames?: Boolean): MumbleOutputStream;
+    outputStream(noEmptyFrames?: boolean): MumbleOutputStream;
 
     /**
      * 
@@ -517,7 +521,7 @@ declare class User {
      * 
      * @returns True if the user can talk.
      */
-    canTalk(): Boolean;
+    canTalk(): boolean;
 
     register(): void;
 
@@ -525,13 +529,13 @@ declare class User {
      * 
      * @returns True if the user can hear.
      */
-    canHear(): Boolean;
+    canHear(): boolean;
 
     /**
      * 
      * @returns _true_ if the user is registered.
      */
-    isRegistered(): Boolean;
+    isRegistered(): boolean;
 
     /**
      * 
@@ -539,9 +543,9 @@ declare class User {
      * session and will change when the user reconnects.
      * @see User#id
      */
-    session: Number;
+    session: number;
 
-    name: String;
+    name: string;
 
     /**
      * 
@@ -549,28 +553,28 @@ declare class User {
      * The user ID won't change when the user reconnects.
      * @see User#session
      */
-    id: Number;
+    id: number;
 
-    mute: Boolean;
+    mute: boolean;
 
-    deaf: Boolean;
+    deaf: boolean;
 
     /**
      * 
      * The user will be suppressed by the server if they don't have permissions
      * to speak on the current channel.
      */
-    suppress: Boolean;
+    suppress: boolean;
 
-    selfMute: Boolean;
+    selfMute: boolean;
 
-    selfDeaf: Boolean;
+    selfDeaf: boolean;
 
-    hash: String;
+    hash: string;
 
-    recording: Boolean;
+    recording: boolean;
 
-    prioritySpeaker: Boolean;
+    prioritySpeaker: boolean;
 
     channel: Channel;
 
