@@ -20,6 +20,8 @@
     "jitterbuffer": "^0.1.12"
   },
   "devDependencies": {
+    "@otris/jsdoc-tsd": "^1.0.4",
+    "@types/node": "^10.9.4",
     "chai": "^3.2.0",
     "chai-spies": "^0.7.0",
     "dmd-clean": "^0.1.0",
@@ -31,6 +33,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.4.1",
     "gulp-util": "^3.0.4",
-    "mocha": "^2.2.5"
+    "jsdoc": "^3.5.5",
+    "mocha": "^2.2.5",
+    "typescript": "^3.0.3"
   }
 }
