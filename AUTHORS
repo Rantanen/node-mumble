@@ -22,3 +22,7 @@ Other contributors
 
 - Michael Perrotte <https://github.com/mikemimik>
   - Created MumbleConnectionManager class
+
+- Patrick Pacher <https://github.com/ppacher>
+  - Fixed user.inputStream()
+  - Automated typescript declarion file generation
