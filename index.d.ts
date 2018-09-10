@@ -57,7 +57,7 @@ declare class MumbleClient extends EventEmitter {
      * The connection is considered `ready` when the server handshake has been
      * processed and the initial ping has been received.
      */
-    ready: Boolean;
+    ready: boolean;
 
     /**
      * 
@@ -164,7 +164,7 @@ declare class MumbleClient extends EventEmitter {
      * @param recipients.session - Session IDs of target users.
      * @param recipients.channel_id - Channel IDs of target channels.
      */
-    sendMessage(message: string, recipients: (sendMessage_recipients)[]): void;
+    sendMessage(message: string, recipients: sendMessage_recipients): void;
 
     /**
      * 
@@ -649,5 +649,5 @@ declare function resample(frame: Buffer, sourceRate: number, targetRate: number)
  * @param sourceBE - whether the source values are big endian
  * @returns Rescaled buffer.
  */
-declare function rescaleToUInt16LE(frame: Buffer, sourceDepth: number, sourceUnsigned: Boolean, sourceBE: Boolean): Buffer;
+declare function rescaleToUInt16LE(frame: Buffer, sourceDepth: number, sourceUnsigned: boolean, sourceBE: boolean): Buffer;
 
