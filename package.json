@@ -1,7 +1,7 @@
 {
   "name": "mumble",
   "description": "Mumble client library",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "author": "Mikko Rantanen <jubjub@jubjubnest.net>",
   "homepage": "https://github.com/Rantanen/node-mumble",
   "bugs": "https://github.com/Rantanen/node-mumble/issues",
@@ -14,7 +14,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "protobufjs": "^4.0.0",
+    "protobufjs": "^5.0.0",
     "node-opus": "^0.2.2",
     "celt": "^0.1.11",
     "jitterbuffer": "^0.1.12"
