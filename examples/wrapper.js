@@ -130,7 +130,7 @@ var commands = [
         command: /!msg ([^:]+): (.*)/,
         action: function( context, names, message ) {
 
-            var recipients = { session: [], channelId: [] };
+            var recipients = { session: [], channel_id: [] };
 
             names = names.split( ',' );
             for( var n in names ) {
@@ -143,7 +143,7 @@ var commands = [
 
                 var channel = context.connection.channelByName( name );
                 if( channel ) {
-                    recipients.channelId.push( channel.id );
+                    recipients.channel_id.push( channel.id );
                 }
             }
 
