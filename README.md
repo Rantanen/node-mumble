@@ -1,3 +1,6 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+### This project is not maintained. The code base depends on various native components that keep breaking between Node versions. There might be non-native alternatives these days so someone should implementa new version of the library on top of such.
 
 Mumble client for Node.js
 =========================
